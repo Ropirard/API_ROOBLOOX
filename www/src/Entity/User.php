@@ -33,14 +33,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\Column(length: 50)]
-    private ?string $pseudo = null;
+    #[ORM\Column(length: 100)]
+    private ?string $lastName = null;
 
-    #[ORM\Column(length: 50)]
-    private ?string $username = null;
+    #[ORM\Column(length: 100)]
+    private ?string $firstName = null;
 
     #[ORM\Column]
-    private ?int $balance = null;
+    private ?\DateTime $birthDate = null;
 
     #[ORM\Column]
     private ?\DateTime $createdAt = null;
@@ -52,38 +52,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?bool $isActive = null;
 
     /**
-     * @var Collection<int, Transaction>
+     * @var Collection<int, Order>
      */
-    #[ORM\OneToMany(targetEntity: Transaction::class, mappedBy: 'user')]
-    private Collection $transactions;
-
-    #[ORM\ManyToOne(inversedBy: 'users')]
-    private ?Avatar $activeAvatar = null;
+    #[ORM\OneToMany(targetEntity: Order::class, mappedBy: 'user')]
+    private Collection $orders;
 
     /**
-     * @var Collection<int, Avatar>
+     * @var Collection<int, Reservation>
      */
-    #[ORM\OneToMany(targetEntity: Avatar::class, mappedBy: 'user')]
-    private Collection $avatars;
-
-    /**
-     * @var Collection<int, Group>
-     */
-    #[ORM\ManyToMany(targetEntity: Group::class, inversedBy: 'users')]
-    private Collection $userGroup;
-
-    /**
-     * @var Collection<int, Game>
-     */
-    #[ORM\ManyToMany(targetEntity: Game::class, inversedBy: 'users')]
-    private Collection $userGame;
+    #[ORM\OneToMany(targetEntity: Reservation::class, mappedBy: 'user')]
+    private Collection $reservations;
 
     public function __construct()
     {
-        $this->transactions = new ArrayCollection();
-        $this->avatars = new ArrayCollection();
-        $this->userGroup = new ArrayCollection();
-        $this->userGame = new ArrayCollection();
+        $this->orders = new ArrayCollection();
+        $this->reservations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -161,38 +144,38 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $data;
     }
 
-    public function getPseudo(): ?string
+    public function getLastName(): ?string
     {
-        return $this->pseudo;
+        return $this->lastName;
     }
 
-    public function setPseudo(string $pseudo): static
+    public function setLastName(string $lastName): static
     {
-        $this->pseudo = $pseudo;
+        $this->lastName = $lastName;
 
         return $this;
     }
 
-    public function getUsername(): ?string
+    public function getFirstName(): ?string
     {
-        return $this->username;
+        return $this->firstName;
     }
 
-    public function setUsername(string $username): static
+    public function setFirstName(string $firstName): static
     {
-        $this->username = $username;
+        $this->firstName = $firstName;
 
         return $this;
     }
 
-    public function getBalance(): ?int
+    public function getBirthDate(): ?\DateTime
     {
-        return $this->balance;
+        return $this->birthDate;
     }
 
-    public function setBalance(int $balance): static
+    public function setBirthDate(\DateTime $birthDate): static
     {
-        $this->balance = $balance;
+        $this->birthDate = $birthDate;
 
         return $this;
     }
@@ -234,71 +217,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Transaction>
+     * @return Collection<int, Order>
      */
-    public function getTransactions(): Collection
+    public function getOrders(): Collection
     {
-        return $this->transactions;
+        return $this->orders;
     }
 
-    public function addTransaction(Transaction $transaction): static
+    public function addOrder(Order $order): static
     {
-        if (!$this->transactions->contains($transaction)) {
-            $this->transactions->add($transaction);
-            $transaction->setUser($this);
+        if (!$this->orders->contains($order)) {
+            $this->orders->add($order);
+            $order->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeTransaction(Transaction $transaction): static
+    public function removeOrder(Order $order): static
     {
-        if ($this->transactions->removeElement($transaction)) {
+        if ($this->orders->removeElement($order)) {
             // set the owning side to null (unless already changed)
-            if ($transaction->getUser() === $this) {
-                $transaction->setUser(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getActiveAvatar(): ?Avatar
-    {
-        return $this->activeAvatar;
-    }
-
-    public function setActiveAvatar(?Avatar $activeAvatar): static
-    {
-        $this->activeAvatar = $activeAvatar;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Avatar>
-     */
-    public function getAvatars(): Collection
-    {
-        return $this->avatars;
-    }
-
-    public function addAvatar(Avatar $avatar): static
-    {
-        if (!$this->avatars->contains($avatar)) {
-            $this->avatars->add($avatar);
-            $avatar->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeAvatar(Avatar $avatar): static
-    {
-        if ($this->avatars->removeElement($avatar)) {
-            // set the owning side to null (unless already changed)
-            if ($avatar->getUser() === $this) {
-                $avatar->setUser(null);
+            if ($order->getUser() === $this) {
+                $order->setUser(null);
             }
         }
 
@@ -306,49 +247,31 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Group>
+     * @return Collection<int, Reservation>
      */
-    public function getUserGroup(): Collection
+    public function getReservations(): Collection
     {
-        return $this->userGroup;
+        return $this->reservations;
     }
 
-    public function addUserGroup(Group $userGroup): static
+    public function addReservation(Reservation $reservation): static
     {
-        if (!$this->userGroup->contains($userGroup)) {
-            $this->userGroup->add($userGroup);
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations->add($reservation);
+            $reservation->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeUserGroup(Group $userGroup): static
+    public function removeReservation(Reservation $reservation): static
     {
-        $this->userGroup->removeElement($userGroup);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Game>
-     */
-    public function getUserGame(): Collection
-    {
-        return $this->userGame;
-    }
-
-    public function addUserGame(Game $userGame): static
-    {
-        if (!$this->userGame->contains($userGame)) {
-            $this->userGame->add($userGame);
+        if ($this->reservations->removeElement($reservation)) {
+            // set the owning side to null (unless already changed)
+            if ($reservation->getUser() === $this) {
+                $reservation->setUser(null);
+            }
         }
-
-        return $this;
-    }
-
-    public function removeUserGame(Game $userGame): static
-    {
-        $this->userGame->removeElement($userGame);
 
         return $this;
     }

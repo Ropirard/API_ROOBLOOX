@@ -2,39 +2,39 @@
 
 namespace App\Repository;
 
-use App\Entity\Group;
+use App\Entity\SeasonalCalendar;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Group>
+ * @extends ServiceEntityRepository<SeasonalCalendar>
  */
-class GroupRepository extends ServiceEntityRepository
+class SeasonalCalendarRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Group::class);
+        parent::__construct($registry, SeasonalCalendar::class);
     }
 
     //    /**
-    //     * @return Group[] Returns an array of Group objects
+    //     * @return SeasonalCalendar[] Returns an array of SeasonalCalendar objects
     //     */
     //    public function findByExampleField($value): array
     //    {
-    //        return $this->createQueryBuilder('g')
-    //            ->andWhere('g.exampleField = :val')
+    //        return $this->createQueryBuilder('s')
+    //            ->andWhere('s.exampleField = :val')
     //            ->setParameter('val', $value)
-    //            ->orderBy('g.id', 'ASC')
+    //            ->orderBy('s.id', 'ASC')
     //            ->setMaxResults(10)
     //            ->getQuery()
     //            ->getResult()
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?Group
+    //    public function findOneBySomeField($value): ?SeasonalCalendar
     //    {
-    //        return $this->createQueryBuilder('g')
-    //            ->andWhere('g.exampleField = :val')
+    //        return $this->createQueryBuilder('s')
+    //            ->andWhere('s.exampleField = :val')
     //            ->setParameter('val', $value)
     //            ->getQuery()
     //            ->getOneOrNullResult()
