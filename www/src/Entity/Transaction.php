@@ -25,6 +25,15 @@ class Transaction
     #[ORM\Column(length: 30)]
     private ?string $type = null;
 
+    #[ORM\ManyToOne(inversedBy: 'transactions')]
+    private ?CurrencyPack $currencyPack = null;
+
+    #[ORM\ManyToOne(inversedBy: 'transactions')]
+    private ?Game $game = null;
+
+    #[ORM\ManyToOne(inversedBy: 'transactions')]
+    private ?User $user = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -74,6 +83,42 @@ class Transaction
     public function setType(string $type): static
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getCurrencyPack(): ?CurrencyPack
+    {
+        return $this->currencyPack;
+    }
+
+    public function setCurrencyPack(?CurrencyPack $currencyPack): static
+    {
+        $this->currencyPack = $currencyPack;
+
+        return $this;
+    }
+
+    public function getGame(): ?Game
+    {
+        return $this->game;
+    }
+
+    public function setGame(?Game $game): static
+    {
+        $this->game = $game;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }
