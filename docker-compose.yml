@@ -1,5 +1,5 @@
 services:
-  apache_vierge:
+  apache_roobloox:
     # nom du service
     build: apache # dossier contenant le Dockerfile
     container_name: ${APACHE_CONTAINER:-apache_vierge} # nom du container
@@ -18,7 +18,7 @@ services:
     networks:
       - app_network # réseau isolé pour la communication entre services
     depends_on:
-      mariadb_vierge:
+      mariadb_roobloox:
         condition: service_healthy # attendre que MariaDB soit prêt
     healthcheck:
       # vérification de santé du container (utilise wget qui est installé)
@@ -32,7 +32,7 @@ services:
     mem_reservation: 256m
     cpus: 2.0
 
-  mariadb_vierge:
+  mariadb_roobloox:
     # nom du service
     image: mariadb:11.3 # version fixe pour la reproductibilité (au lieu de latest)
     container_name: ${MARIADB_CONTAINER:-mariadb_vierge} # nom du container
