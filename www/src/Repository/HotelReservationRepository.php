@@ -2,39 +2,39 @@
 
 namespace App\Repository;
 
-use App\Entity\Ticket;
+use App\Entity\HotelReservation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Ticket>
+ * @extends ServiceEntityRepository<HotelReservation>
  */
-class TicketRepository extends ServiceEntityRepository
+class HotelReservationRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Ticket::class);
+        parent::__construct($registry, HotelReservation::class);
     }
 
     //    /**
-    //     * @return Ticket[] Returns an array of Ticket objects
+    //     * @return HotelReservation[] Returns an array of HotelReservation objects
     //     */
     //    public function findByExampleField($value): array
     //    {
-    //        return $this->createQueryBuilder('t')
-    //            ->andWhere('t.exampleField = :val')
+    //        return $this->createQueryBuilder('h')
+    //            ->andWhere('h.exampleField = :val')
     //            ->setParameter('val', $value)
-    //            ->orderBy('t.id', 'ASC')
+    //            ->orderBy('h.id', 'ASC')
     //            ->setMaxResults(10)
     //            ->getQuery()
     //            ->getResult()
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?Ticket
+    //    public function findOneBySomeField($value): ?HotelReservation
     //    {
-    //        return $this->createQueryBuilder('t')
-    //            ->andWhere('t.exampleField = :val')
+    //        return $this->createQueryBuilder('h')
+    //            ->andWhere('h.exampleField = :val')
     //            ->setParameter('val', $value)
     //            ->getQuery()
     //            ->getOneOrNullResult()

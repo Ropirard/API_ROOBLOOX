@@ -2,39 +2,39 @@
 
 namespace App\Repository;
 
-use App\Entity\Tarif;
+use App\Entity\Bundle;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Tarif>
+ * @extends ServiceEntityRepository<Bundle>
  */
-class TarifRepository extends ServiceEntityRepository
+class BundleRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Tarif::class);
+        parent::__construct($registry, Bundle::class);
     }
 
     //    /**
-    //     * @return Tarif[] Returns an array of Tarif objects
+    //     * @return Bundle[] Returns an array of Bundle objects
     //     */
     //    public function findByExampleField($value): array
     //    {
-    //        return $this->createQueryBuilder('t')
-    //            ->andWhere('t.exampleField = :val')
+    //        return $this->createQueryBuilder('b')
+    //            ->andWhere('b.exampleField = :val')
     //            ->setParameter('val', $value)
-    //            ->orderBy('t.id', 'ASC')
+    //            ->orderBy('b.id', 'ASC')
     //            ->setMaxResults(10)
     //            ->getQuery()
     //            ->getResult()
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?Tarif
+    //    public function findOneBySomeField($value): ?Bundle
     //    {
-    //        return $this->createQueryBuilder('t')
-    //            ->andWhere('t.exampleField = :val')
+    //        return $this->createQueryBuilder('b')
+    //            ->andWhere('b.exampleField = :val')
     //            ->setParameter('val', $value)
     //            ->getQuery()
     //            ->getOneOrNullResult()

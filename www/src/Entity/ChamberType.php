@@ -2,12 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\PassRepository;
+use App\Repository\ChamberTypeRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: PassRepository::class)]
-class Pass
+#[ORM\Entity(repositoryClass: ChamberTypeRepository::class)]
+class ChamberType
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -21,7 +21,10 @@ class Pass
     private ?string $description = null;
 
     #[ORM\Column]
-    private ?int $price = null;
+    private ?int $nightlyPrice = null;
+
+    #[ORM\Column]
+    private ?int $capacity = null;
 
     public function getId(): ?int
     {
@@ -52,14 +55,26 @@ class Pass
         return $this;
     }
 
-    public function getPrice(): ?int
+    public function getNightlyPrice(): ?int
     {
-        return $this->price;
+        return $this->nightlyPrice;
     }
 
-    public function setPrice(int $price): static
+    public function setNightlyPrice(int $nightlyPrice): static
     {
-        $this->price = $price;
+        $this->nightlyPrice = $nightlyPrice;
+
+        return $this;
+    }
+
+    public function getCapacity(): ?int
+    {
+        return $this->capacity;
+    }
+
+    public function setCapacity(int $capacity): static
+    {
+        $this->capacity = $capacity;
 
         return $this;
     }

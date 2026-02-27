@@ -2,12 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\PassRepository;
+use App\Repository\PackRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: PassRepository::class)]
-class Pass
+#[ORM\Entity(repositoryClass: PackRepository::class)]
+class Pack
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -21,7 +21,13 @@ class Pass
     private ?string $description = null;
 
     #[ORM\Column]
-    private ?int $price = null;
+    private ?int $nbDays = null;
+
+    #[ORM\Column]
+    private ?int $nbParks = null;
+
+    #[ORM\Column]
+    private ?int $basePrice = null;
 
     public function getId(): ?int
     {
@@ -52,14 +58,38 @@ class Pass
         return $this;
     }
 
-    public function getPrice(): ?int
+    public function getNbDays(): ?int
     {
-        return $this->price;
+        return $this->nbDays;
     }
 
-    public function setPrice(int $price): static
+    public function setNbDays(int $nbDays): static
     {
-        $this->price = $price;
+        $this->nbDays = $nbDays;
+
+        return $this;
+    }
+
+    public function getNbParks(): ?int
+    {
+        return $this->nbParks;
+    }
+
+    public function setNbParks(int $nbParks): static
+    {
+        $this->nbParks = $nbParks;
+
+        return $this;
+    }
+
+    public function getBasePrice(): ?int
+    {
+        return $this->basePrice;
+    }
+
+    public function setBasePrice(int $basePrice): static
+    {
+        $this->basePrice = $basePrice;
 
         return $this;
     }

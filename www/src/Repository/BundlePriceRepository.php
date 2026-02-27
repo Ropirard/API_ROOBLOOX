@@ -2,39 +2,39 @@
 
 namespace App\Repository;
 
-use App\Entity\Cart;
+use App\Entity\BundlePrice;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Cart>
+ * @extends ServiceEntityRepository<BundlePrice>
  */
-class CartRepository extends ServiceEntityRepository
+class BundlePriceRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Cart::class);
+        parent::__construct($registry, BundlePrice::class);
     }
 
     //    /**
-    //     * @return Cart[] Returns an array of Cart objects
+    //     * @return BundlePrice[] Returns an array of BundlePrice objects
     //     */
     //    public function findByExampleField($value): array
     //    {
-    //        return $this->createQueryBuilder('c')
-    //            ->andWhere('c.exampleField = :val')
+    //        return $this->createQueryBuilder('b')
+    //            ->andWhere('b.exampleField = :val')
     //            ->setParameter('val', $value)
-    //            ->orderBy('c.id', 'ASC')
+    //            ->orderBy('b.id', 'ASC')
     //            ->setMaxResults(10)
     //            ->getQuery()
     //            ->getResult()
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?Cart
+    //    public function findOneBySomeField($value): ?BundlePrice
     //    {
-    //        return $this->createQueryBuilder('c')
-    //            ->andWhere('c.exampleField = :val')
+    //        return $this->createQueryBuilder('b')
+    //            ->andWhere('b.exampleField = :val')
     //            ->setParameter('val', $value)
     //            ->getQuery()
     //            ->getOneOrNullResult()

@@ -2,12 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\PassRepository;
+use App\Repository\BundleRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: PassRepository::class)]
-class Pass
+#[ORM\Entity(repositoryClass: BundleRepository::class)]
+class Bundle
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -21,7 +21,7 @@ class Pass
     private ?string $description = null;
 
     #[ORM\Column]
-    private ?int $price = null;
+    private ?int $nbNights = null;
 
     public function getId(): ?int
     {
@@ -52,14 +52,14 @@ class Pass
         return $this;
     }
 
-    public function getPrice(): ?int
+    public function getNbNights(): ?int
     {
-        return $this->price;
+        return $this->nbNights;
     }
 
-    public function setPrice(int $price): static
+    public function setNbNights(int $nbNights): static
     {
-        $this->price = $price;
+        $this->nbNights = $nbNights;
 
         return $this;
     }
