@@ -16,6 +16,12 @@ class PackPrice
     #[ORM\Column]
     private ?int $pricePerPerson = null;
 
+    #[ORM\ManyToOne(inversedBy: 'packPrices')]
+    private ?Pack $pack = null;
+
+    #[ORM\ManyToOne(inversedBy: 'packPrices')]
+    private ?SeasonalCalendar $season = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -29,6 +35,30 @@ class PackPrice
     public function setPricePerPerson(int $pricePerPerson): static
     {
         $this->pricePerPerson = $pricePerPerson;
+
+        return $this;
+    }
+
+    public function getPack(): ?Pack
+    {
+        return $this->pack;
+    }
+
+    public function setPack(?Pack $pack): static
+    {
+        $this->pack = $pack;
+
+        return $this;
+    }
+
+    public function getSeason(): ?SeasonalCalendar
+    {
+        return $this->season;
+    }
+
+    public function setSeason(?SeasonalCalendar $season): static
+    {
+        $this->season = $season;
 
         return $this;
     }

@@ -23,6 +23,12 @@ class HotelReservation
     #[ORM\Column]
     private ?int $total_price_snapshot = null;
 
+    #[ORM\ManyToOne(inversedBy: 'hotelReservations')]
+    private ?Order $orders = null;
+
+    #[ORM\ManyToOne(inversedBy: 'hotelReservations')]
+    private ?Chamber $chamber = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +66,30 @@ class HotelReservation
     public function setTotalPriceSnapshot(int $total_price_snapshot): static
     {
         $this->total_price_snapshot = $total_price_snapshot;
+
+        return $this;
+    }
+
+    public function getOrders(): ?Order
+    {
+        return $this->orders;
+    }
+
+    public function setOrders(?Order $orders): static
+    {
+        $this->orders = $orders;
+
+        return $this;
+    }
+
+    public function getChamber(): ?Chamber
+    {
+        return $this->chamber;
+    }
+
+    public function setChamber(?Chamber $chamber): static
+    {
+        $this->chamber = $chamber;
 
         return $this;
     }

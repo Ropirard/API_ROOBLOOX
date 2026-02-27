@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PackRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -28,6 +30,31 @@ class Pack
 
     #[ORM\Column]
     private ?int $basePrice = null;
+
+    /**
+     * @var Collection<int, Bundle>
+     */
+    #[ORM\OneToMany(targetEntity: Bundle::class, mappedBy: 'pack')]
+    private Collection $bundles;
+
+    /**
+     * @var Collection<int, PackPrice>
+     */
+    #[ORM\OneToMany(targetEntity: PackPrice::class, mappedBy: 'pack')]
+    private Collection $packPrices;
+
+    /**
+     * @var Collection<int, Order>
+     */
+    #[ORM\OneToMany(targetEntity: Order::class, mappedBy: 'pack')]
+    private Collection $orders;
+
+    public function __construct()
+    {
+        $this->bundles = new ArrayCollection();
+        $this->packPrices = new ArrayCollection();
+        $this->orders = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -90,6 +117,96 @@ class Pack
     public function setBasePrice(int $basePrice): static
     {
         $this->basePrice = $basePrice;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Bundle>
+     */
+    public function getBundles(): Collection
+    {
+        return $this->bundles;
+    }
+
+    public function addBundle(Bundle $bundle): static
+    {
+        if (!$this->bundles->contains($bundle)) {
+            $this->bundles->add($bundle);
+            $bundle->setPack($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBundle(Bundle $bundle): static
+    {
+        if ($this->bundles->removeElement($bundle)) {
+            // set the owning side to null (unless already changed)
+            if ($bundle->getPack() === $this) {
+                $bundle->setPack(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PackPrice>
+     */
+    public function getPackPrices(): Collection
+    {
+        return $this->packPrices;
+    }
+
+    public function addPackPrice(PackPrice $packPrice): static
+    {
+        if (!$this->packPrices->contains($packPrice)) {
+            $this->packPrices->add($packPrice);
+            $packPrice->setPack($this);
+        }
+
+        return $this;
+    }
+
+    public function removePackPrice(PackPrice $packPrice): static
+    {
+        if ($this->packPrices->removeElement($packPrice)) {
+            // set the owning side to null (unless already changed)
+            if ($packPrice->getPack() === $this) {
+                $packPrice->setPack(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Order>
+     */
+    public function getOrders(): Collection
+    {
+        return $this->orders;
+    }
+
+    public function addOrder(Order $order): static
+    {
+        if (!$this->orders->contains($order)) {
+            $this->orders->add($order);
+            $order->setPack($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrder(Order $order): static
+    {
+        if ($this->orders->removeElement($order)) {
+            // set the owning side to null (unless already changed)
+            if ($order->getPack() === $this) {
+                $order->setPack(null);
+            }
+        }
 
         return $this;
     }
